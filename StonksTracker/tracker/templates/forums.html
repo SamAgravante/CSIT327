@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forum</title>
+</head>
+<body>
+    <div style="justify-content: center; align-content: start; border: 2px solid black; padding: 20px; margin: 10px; width: 400px;">
+        <h1 style="font-family: sans-serif; font-size: 40px;">Forum Posts</h1>
+        <a href="{% url 'create_post' %}" style="text-decoration: none;">
+            <button style="font-size: 16px; padding: 10px; margin-bottom: 20px;">Create New Post</button>
+        </a>
+        <hr>
+        <ul>
+            {% for forum in forums %}
+                <li>
+                    <span style="font-weight: bold; font-size: 20px;">{{ forum.title }} ({{ forum.dateCreated }})</span>
+                    <br>
+                    <span style="font-style: italic;">
+                        Posted by: {{ forum.user }}
+                    </span>
+                    <br>
+                    {{ forum.content }}
+                    <br>
+                    <a href="{% url 'delete_post' forum.id %}" style="color: red; text-decoration: none;">Delete</a>
+                    <hr>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
+

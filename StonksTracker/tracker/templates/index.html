@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}StonksTracker{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <center><h1>StonksTracker</h1></center>
+        </div>
+        <br>
+        <center>
+        <div class="menu">
+            <a href="">Dashboard</a>
+            <a href="">Item List</a>
+            <a href="">Settings</a>
+            <a href="{% url 'forums' %}">Forums</a>
+            <a href="">FAQs</a>
+        </div>
+        </center>
+    </div>
+    <div class="search-bar">
+        <center><input type="text" placeholder="Search Items"></center>
+    </div>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

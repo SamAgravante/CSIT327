@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StonksTracker - Watchlist</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <header>
+    <h1>Your Watchlist</h1>
+    {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
+    <a href="{% url 'add_watchlist' %}">Add to Watchlist</a>
+  </header>
+  <div class="container">
+    <ul>
+      {% for item in watchlist_items %}
+        <li>
+          {{ item.WatchlistID }} - {{ item.UserID.username }}
+          <a href="{% url 'update_watchlist' item.pk %}">Edit</a>
+          <a href="{% url 'delete_watchlist' item.pk %}">Delete</a>
+        </li> 
+      {% empty %}
+        <li>No items in your watchlist.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>

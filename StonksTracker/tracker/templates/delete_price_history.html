@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StonksTracker - Delete Price History</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <header>
+    <h1>Delete Price History</h1>
+    {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
+  </header>
+
+  <div class="container">
+    <h2>Are you sure you want to delete the price record for "{{ price_history_item.itemName }}"?</h2>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit">Delete</button>
+    </form>
+    <a href="{% url 'price_history' %}">Cancel</a>
+  </div>
+</body>
+</html>

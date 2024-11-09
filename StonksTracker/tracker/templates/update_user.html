@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Update User</h1>
+    </header>
+    <div class="container">
+        <form method="POST" action="{% url 'update_user' user.pk %}">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {{ form.as_p }}  <!-- Renders the form fields -->
+            <button type="submit">Update User</button>
+        </form>
+        <a href="{% url 'user_list' %}">Back to User List</a>
+    </div>
+</body>
+</html>

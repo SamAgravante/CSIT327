@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Post</title>
+</head>
+<body>
+    <h1 style="font-family: sans-serif; font-size: 40px;">Update Post</h1>
+    <form method="post" style="border: 2px solid black; padding: 20px; width: 400px;">
+        {% csrf_token %}
+        <label for="title" style="font-size: 16px;">Title:</label><br>
+        <input type="text" name="title" id="title" value="{{ forum.title }}" style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+        
+        <label for="content" style="font-size: 16px;">Content:</label><br>
+        <textarea name="content" id="content" rows="5" style="width: 100%; padding: 8px; margin: 10px 0;">{{ forum.content }}</textarea><br>
+        
+        <button type="submit" style="font-size: 16px; padding: 10px; background-color: blue; color: white;">Update</button>
+        <a href="{% url 'forums' %}" style="text-decoration: none; margin-left: 10px;">
+            <button type="button" style="font-size: 16px; padding: 10px;">Cancel</button>
+        </a>
+    </form>
+</body>
+</html>

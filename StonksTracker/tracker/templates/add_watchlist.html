@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StonksTracker - Add to Watchlist</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Add to Watchlist</h1>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'watchlist' %}">Back to Watchlist</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </header>
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Add to Watchlist</button>
+        </form>
+    </div>
+</body>
+</html>

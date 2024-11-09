@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StonksTracker - Add Price History</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <header>
+    <h1>Add Price History</h1>
+    {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
+  </header>
+
+  <div class="container">
+    <form method="post">
+      {% csrf_token %}
+      <label for="itemName">Item Name:</label>
+      <input type="text" id="itemName" name="itemName" required>
+
+      <label for="price">Price:</label>
+      <input type="number" id="price" name="price" step="0.01" required>
+
+      <button type="submit">Add Price Record</button>
+    </form>
+    <a href="{% url 'price_history' %}">Back to Price History</a>
+  </div>
+</body>
+</html>

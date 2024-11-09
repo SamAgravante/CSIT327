@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StonksTracker - Log In</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <header>
+    <a href="#" class="menu-icon">
+      <img src="{% static 'images_png_or_svg/menu-icon.svg' %}" alt="Menu Icon" width="50" height="50">
+    </a>
+    <div class="logo">
+      <h1>StonksTracker</h1>
+    </div>
+    <a href="#" class="user-icon">
+      <img src="{% static 'images_png_or_svg/user-icon.png' %}" alt="User Icon" width="50" height="50">
+    </a>
+  </header>
+
+  <div class="container">
+    <h1>Welcome!</h1>
+    <div class="separator">Log in with</div>
+    <button class="steam-btn">
+      <img src="{% static 'images_png_or_svg/steam-logo.png' %}" alt="Steam Logo" width="40"> LOG IN WITH STEAM
+    </button>
+    
+    <div class="separator">or</div>
+
+    <!-- Login Form -->
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <!-- Email field -->
+      <input type="email" name="email" placeholder="EMAIL" required>
+      {{ form.email.errors }}
+      <!-- Password field -->
+      <input type="password" name="password" placeholder="PASSWORD" required>
+      {{ form.password.errors }}
+      <!-- Submit button -->
+       
+      <button type="submit" class="login-btn">LOG IN</button>
+
+      {% for message in messages %}
+    <div class="alert">{{ message }}</div>
+{% endfor %}
+
+  </form>
+  
+
+    <div class="login-link">
+      <a href="{% url 'signup' %}">Don't have an account?</a>
+    </div>
+  </div>
+</body>
+</html>

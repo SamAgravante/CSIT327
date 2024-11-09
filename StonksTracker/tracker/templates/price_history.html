@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StonksTracker - Price History</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <header>
+    <h1>Price History</h1>
+    {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
+  </header>
+
+  <div class="container">
+    <h2>Your Price History</h2>
+    <a href="{% url 'add_price_history' %}">Add New Price Record</a>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Item Name</th>
+          <th>Price</th>
+          <th>Timestamp</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in price_history_items %}
+        <tr>
+          <td>{{ record.historyID }}</td>
+          <td>{{ record.itemName }}</td>
+          <td>{{ record.price }}</td>
+          <td>{{ record.timestamp }}</td>
+          <td>
+            <a href="{% url 'update_price_history' record.pk %}">Edit</a>
+            <form action="{% url 'delete_price_history' record.pk %}" method="post" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5">No price records available.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

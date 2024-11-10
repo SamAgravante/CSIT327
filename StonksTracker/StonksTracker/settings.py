@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stonkstracker_db_project_github',
         'USER': 'root',
-        'PASSWORD': 'test123',
+        'PASSWORD': 'admin',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }

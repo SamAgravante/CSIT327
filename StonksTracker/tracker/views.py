@@ -28,8 +28,10 @@ def items_list(request):
     # API endpoint
     api_url = "https://www.steamwebapi.com/steam/api/items"
     params = {
-        'key': 'WH1SLQ1PX2CHGLK0',  # Replace with your actual API key
-        'max': 200,
+        'key': 'WH1SLQ1PX2CHGLK0',
+        'game': 'cs2',
+        'max': 1000,
+        'sort_by': 'priceRealAz',
         'price_min': 0.001,
         'currency': 'PHP'
     }
@@ -37,9 +39,9 @@ def items_list(request):
     try:
         response = requests.get(api_url, params=params)
         response.raise_for_status()
-        items = response.json()  # Adjust key if needed based on API response structure
+        items = response.json() 
     except requests.RequestException as e:
         print(f"Error fetching data from API: {e}")
-        items = []  # Fallback to an empty list if there's an error
+        items = [] 
 
     return render(request, 'item_list.html', {'items': items})

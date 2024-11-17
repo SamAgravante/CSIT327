@@ -8,15 +8,22 @@
             margin-right: 50px;
             margin-left: 50px;
         }
+
+        img {
+            height: 100px;
+            width: 100px;
+        }
     </style>
 </head>
 <body>
-    <h1>CSGO Items</h1>
+    <a href="{% url 'index' %}">Home</a>
+    <h1>Item List</h1>
     <ul>
         {% for item in items %}
             <li>
                 <h3>{{ item.marketname }}</h3>
-                <p>Price: ₱ {{ item.priceavg }}</p>
+                <p>Price: ₱ {{ item.pricelatest }}</p>
+                <img src="{{ item.itemimage }}" />
                 <hr>
             </li>
         {% endfor %}

@@ -21,9 +21,13 @@
     <ul>
         {% for item in items %}
             <li>
-                <h3>{{ item.marketname }}</h3>
+                <h3>{{ item.markethashname }}</h3>
                 <p>Price: ₱ {{ item.pricelatest }}</p>
                 <img src="{{ item.itemimage }}" />
+                <form action="{% url 'add-to-watchlist' item.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Add to Watchlist</button>
+                </form>
                 <hr>
             </li>
         {% endfor %}

@@ -1,0 +1,12 @@
+<h1>Your Watchlist</h1>
+<ul>
+    {% for item in watchlist_items %}
+        <li>
+            <h3>{{ item.name }}</h3>
+            <p>Price: {{ item.price }}</p>
+            <img src="{{ item.image_url }}" alt="{{ item.name }}" width="100">
+        </li>
+    {% empty %}
+        <li>Your watchlist is empty.</li>
+    {% endfor %}
+</ul>

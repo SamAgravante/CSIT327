@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Forums
+from .models import Watchlist
 import requests # type: ignore
 
 def index(request):
@@ -25,11 +26,9 @@ def delete_post(request, id):
     return redirect('forums')
 
 def items_list(request):
-    # API endpoint
     api_url = "https://www.steamwebapi.com/steam/api/items"
     params = {
         'key': 'WH1SLQ1PX2CHGLK0',
-        'game': 'cs2',
         'max': 1000,
         'sort_by': 'priceRealAz',
         'price_min': 0.001,
@@ -45,3 +44,53 @@ def items_list(request):
         items = [] 
 
     return render(request, 'item_list.html', {'items': items})
+
+def add_to_watchlist(request, item_id):
+    api_url = "https://www.steamwebapi.com/steam/api/items"
+    params = {
+        'key': 'WH1SLQ1PX2CHGLK0',
+        'item_id': item_id,
+    }
+
+    try:
+        response = requests.get(api_url, params=params)
+        response.raise_for_status()
+        item_data = response.json()
+
+        if isinstance(item_data, list):
+            item_data = item_data[0]
+    except requests.RequestException as e:
+        print(f"Error fetching item: {e}")
+        return redirect('item-list')
+
+    if not request.user.is_authenticated:
+        watchlist_items = request.session.get('watchlist', [])
+        if not any(item['item_id'] == item_id for item in watchlist_items):
+            watchlist_items.append({
+                'item_id': item_id,
+                'name': item_data['markethashname'],
+                'price': item_data['pricelatest'],
+                'image_url': item_data['itemimage'],
+            })
+            request.session['watchlist'] = watchlist_items
+    else:
+        if not Watchlist.objects.filter(user=request.user, item_id=item_id).exists():
+            Watchlist.objects.create(
+                user=request.user,
+                item_id=item_id,
+                name=item_data['markethashname'],
+                price=item_data['pricelatest'],
+                image_url=item_data['itemimage']
+            )
+    return redirect('watchlist')
+
+def watchlist(request):
+    if request.user.is_authenticated:
+        # Authenticated users: Fetch watchlist items from database
+        watchlist_items = Watchlist.objects.filter(user=request.user)
+    else:
+        # Unauthenticated users: Fetch watchlist items from session
+        watchlist_items = request.session.get('watchlist', [])
+    
+    # Handle data format for template
+    return render(request, 'watchlist.html', {'watchlist_items': watchlist_items})

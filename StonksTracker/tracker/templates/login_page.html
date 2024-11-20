@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{% static 'css/header.css' %}">
   <script src="{% static 'javascript/menu-sidebar.js' %}" defer></script>
 </head>
-<body style="background-image: url('{% static 'images/vector-bg-stonks.png' %}'); background-size: 100% 45%; background-position: center bottom; background-repeat: no-repeat;">
+<body>
 <header>
   <a href="javascript:void(0)" class="menu-icon" onclick="openNav()">
     <img src="{% static 'images/menu-icon.svg' %}" alt="Menu Icon" width="50" height="50">
@@ -35,6 +35,7 @@
   <ul>
     <li><a href="{% url 'watchlist' %}">Dashboard</a></li>
     <li><a href="{% url 'items_list' %}">Item List</a></li>
+    <li><a href="{% url 'items_list' %}">Settings</a></li>
     <li><a href="{% url 'forums' %}">Forums</a></li>
     <li><a href="{% url 'faq' %}">FAQs</a></li>
   </ul>

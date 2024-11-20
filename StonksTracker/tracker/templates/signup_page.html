@@ -9,7 +9,13 @@
   <link rel="stylesheet" href="{% static 'css/header.css' %}">
   <script src="{% static 'javascript/menu-sidebar.js' %}" defer></script>
 </head>
-<body style="background-image: url('{% static 'images/vector-bg-stonks.png' %}'); background-size: 100% 45%; background-position: center bottom; background-repeat: no-repeat;">
+<style>
+  .background-image {
+    background-image: url("{% static 'images/vector-bg-stonks.png' %}");
+  }
+</style>
+<body class="background-image" style="background-size: 100% 45%; background-position: center bottom; background-repeat: no-repeat;">
+  
   <header>
     <a href="javascript:void(0)" class="menu-icon" onclick="openNav()">
       <img src="{% static 'images/menu-icon.svg' %}" alt="Menu Icon" width="50" height="50">
@@ -33,11 +39,11 @@
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <ul>
-      <li><a href="#">Dashboards</a></li>
-      <li><a href="#">Item List</a></li>
-      <li><a href="#">Settings</a></li>
-      <li><a href="#">Forums</a></li>
-      <li><a href="#">FAQs</a></li>
+    <li><a href="{% url 'watchlist' %}">Dashboard</a></li>
+    <li><a href="{% url 'items_list' %}">Item List</a></li>
+    <li><a href="{% url 'items_list' %}">Settings</a></li>
+    <li><a href="{% url 'forums' %}">Forums</a></li>
+    <li><a href="{% url 'faq' %}">FAQs</a></li>
     </ul>
   </div>
 
@@ -71,5 +77,7 @@
       <a href="{% url 'login' %}">Already have an account?</a>
     </div>
   </div>
+  
 </body>
+
 </html>

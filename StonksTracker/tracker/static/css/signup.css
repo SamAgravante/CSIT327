@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: white;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+    flex-direction: column;
+}
+
+
+
+
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 70px); /* Adjust based on header height */
+    margin-top: 70px; /* Adjust based on header height */
+    background-image: url("{% static 'images_png_or_svg/vector-bg-stonks.png' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #0f29e5; /* Optional: Add a background color with transparency */
+    border-radius: 10px;
+    padding: 40px 60px;
+    width: 400px;
+    text-align: center;
+}
+
+.container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: white;
+}
+
+
+.separator {
+  margin: 35px 0;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.separator::before, .separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid white;
+}
+.separator::before {
+  margin-right: 10px;
+}
+.separator::after {
+  margin-left: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    
+}
+
+.signup-btn {
+    padding: 10px 15px;
+    background-color: white;
+    border: none;
+    color: black;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.signup-btn:hover {
+    background-color: grey;
+}
+
+.steam-btn {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    margin: 10px 0;
+    width: 100%;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.steam-btn:hover {
+    background-color: grey;
+}
+.steam-btn img {
+    margin-right: 10px;
+}
+
+.login-link {
+    margin-top: 15px;
+}
+
+.login-link a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}

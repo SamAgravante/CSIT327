@@ -6,12 +6,99 @@ import requests # type: ignore
 from django.shortcuts import redirect
 from django.contrib import messages
 
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib import messages
+from django import forms
+from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm 
+from .forms import CustomUserCreationForm
+from .models import User, Watchlist, PriceHistory, Forums # Ensure you import necessary models
+
+# Custom UserCreationForm to include email
+class CustomUserCreationForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+    password1 = forms.CharField(widget=forms.PasswordInput)
+    password2 = forms.CharField(widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
+
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords do not match.")
+        
+        return cleaned_data
+
+    def save(self, commit=True):
+        user = super(CustomUserCreationForm, self).save(commit=False)
+        user.set_password(self.cleaned_data['password1'])  # Hash the password
+        if commit:
+            user.save()
+        return user
+
+class CustomUserChangeForm(UserChangeForm):
+    password = None  # Disable password field in the update form
+
+    class Meta:
+        model = User
+        fields = ('username', 'email')  # Only allow updating username and email
+
+
+# Register view (Sign-up)
+def register_view(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Registration successful.")
+            return redirect('login')  # Redirect to login after successful signup
+    else:
+        form = CustomUserCreationForm()
+    
+    return render(request, 'signup_page.html', {'form': form})
+
+# Login view
+
+
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(username=email, password=password)  # Authenticate using email
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            messages.error(request, 'Invalid credentials')
+    return render(request, 'login_page.html')
+
+
+
+# Logout view
+def logout_view(request):
+    logout(request)
+    return redirect('index')
+
+
+
+
 def index(request):
     return render(request, 'index.html')
 
 def forum(request):
     forums = Forums.objects.all()
     return render(request, 'forums.html', {'forums': forums})
+
 
 def create_post(request):
     if request.method == 'POST':
@@ -21,6 +108,7 @@ def create_post(request):
         Forums.objects.create(title=title, content=content, user=user)
         return redirect('forums')
     return render(request, 'create_post.html')
+
 
 def delete_post(request, id):
     forum = Forums.objects.get(id=id)
@@ -47,6 +135,7 @@ def items_list(request):
 
     return render(request, 'item_list.html', {'items': items})
 
+
 def add_to_watchlist(request):
     if request.method == "POST":
         item_id = request.POST.get('item_id')
@@ -67,11 +156,13 @@ def add_to_watchlist(request):
 
     return redirect('items_list')
 
+
 def delete_from_watchlist(request):
     if request.method == "POST":
         item_id = request.POST.get('item_id')
         Watchlist.objects.filter(item_id=item_id).delete()
     return redirect('watchlist')
+
 
 def watchlist(request):
     items = Watchlist.objects.all()

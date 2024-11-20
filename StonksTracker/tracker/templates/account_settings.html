@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StonksTracker - Account Settings</title>
+  <link rel="stylesheet" href="{% static 'account_settings.css' %}">
+  <link rel="stylesheet" href="{% static 'header.css' %}">
+  <script src="{% static 'menu-sidebar.js' %}" defer></script>
+</head>
+<body>
+  <header>
+    <a href="javascript:void(0)" class="menu-icon" onclick="openNav()">
+      <img src="{% static 'images_png_or_svg/menu-icon.svg' %}" alt="Menu Icon" width="50" height="50">
+    </a>
+    <div class="logo">
+      <h1>StonksTracker</h1>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">
+        <img src="{% static 'images_png_or_svg/user-icon.png' %}" alt="User Icon" width="50" height="50">
+      </button>
+      <div class="dropdown-content">
+        <a href="{% if user.is_authenticated %}#account{% else %}{% url 'login' %}{% endif %}">Account</a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+  
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <ul>
+      <li><a href="#">Dashboards</a></li>
+      <li><a href="#">Item List</a></li>
+      <li><a href="#">Settings</a></li>
+      <li><a href="#">Forums</a></li>
+      <li><a href="#">FAQs</a></li>
+    </ul>
+  </div>
+
+  <div id="main" class="main-container">
+    <div class="container">
+      <h1>Account Settings</h1>
+      <form method="POST" action="{% url 'update_account' %}">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <input type="text" name="username" placeholder="USERNAME" value="{{ form.username.value }}" required>
+        {{ form.username.errors }}
+        <input type="email" name="email" placeholder="EMAIL" value="{{ form.email.value }}" required>
+        {{ form.email.errors }}
+        <input type="password" name="password1" placeholder="NEW PASSWORD">
+        {{ form.password1.errors }}
+        <input type="password" name="password2" placeholder="CONFIRM NEW PASSWORD">
+        {{ form.password2.errors }}
+        <button type="submit" class="update-btn">Update</button>
+      </form>
+
+      <div class="crud-actions">
+        <button class="delete-btn" onclick="deleteAccount()">Delete Account</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function deleteAccount() {
+      if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+        window.location.href = "{% url 'delete_account' %}";
+      }
+    }
+  </script>
+</body>
+</html>

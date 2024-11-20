@@ -10,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .forms import CustomUserCreationForm, WatchlistForm, PriceHistoryForm
 from .models import User, Watchlist, PriceHistory, Forums # Ensure you import necessary models
 
+
 # Custom UserCreationForm to include email
 class CustomUserCreationForm(forms.ModelForm):
     email = forms.EmailField(required=True)

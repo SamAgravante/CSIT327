@@ -5,24 +5,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StonksTracker - Sign Up</title>
-  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="{% static 'signup.css' %}">
+  <link rel="stylesheet" href="{% static 'header.css' %}">
+  <script src="{% static 'menu-sidebar.js' %}" defer></script>
 </head>
 <body>
   <header>
-    <!-- Clickable Menu Icon -->
-    <a href="#" class="menu-icon">
+    <a href="javascript:void(0)" class="menu-icon" onclick="openNav()">
       <img src="{% static 'images_png_or_svg/menu-icon.svg' %}" alt="Menu Icon" width="50" height="50">
     </a>
-    
     <div class="logo">
       <h1>StonksTracker</h1>
     </div>
-
-    <!-- Clickable User Icon -->
-    <a href="#" class="user-icon">
-      <img src="{% static 'images_png_or_svg/user-icon.png' %}" alt="User Icon" width="50" height="50">
-    </a>
+    <div class="dropdown">
+      <button class="dropbtn">
+        <img src="{% static 'images_png_or_svg/user-icon.png' %}" alt="User Icon" width="50" height="50">
+      </button>
+      <div class="dropdown-content">
+        <a href="{% if user.is_authenticated %}#account{% else %}{% url 'login' %}{% endif %}">Account</a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+      </div>
+    </div>
   </header>
+  
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <ul>
+      <li><a href="#">Dashboards</a></li>
+      <li><a href="#">Item List</a></li>
+      <li><a href="#">Settings</a></li>
+      <li><a href="#">Forums</a></li>
+      <li><a href="#">FAQs</a></li>
+    </ul>
+  </div>
 
   <div class="container">
     <h1>Welcome!</h1>

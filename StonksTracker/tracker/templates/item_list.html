@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSGO Items</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin-right: 50px;
+            margin-left: 50px;
+        }
+
+        img {
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'index' %}">Home</a>
+    <h1>Item List</h1>
+    <ul>
+        {% for item in items %}
+            <li>
+                <h3>{{ item.marketname }}</h3>
+                <p>Price: ₱ {{ item.pricelatest }}</p>
+                <img src="{{ item.itemimage }}" />
+                <hr>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

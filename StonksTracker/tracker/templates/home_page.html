@@ -5,21 +5,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StonksTracker - Home</title>
-  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="{% static 'homepage.css' %}">
+  <link rel="stylesheet" href="{% static 'header.css' %}">
+  <script src="{% static 'menu-sidebar.js' %}" defer></script>
 </head>
 <body>
   <header>
-    <h1>Welcome to StonksTracker!</h1>
-    {% if user.is_authenticated %}
-      <a href="{% url 'logout' %}">Logout</a>
-      
-    {% else %}
-      <a href="{% url 'login' %}">Login</a>
-      <a href="{% url 'signup' %}">Sign Up</a>
-    {% endif %}
+    <a href="javascript:void(0)" class="menu-icon" onclick="openNav()">
+      <img src="{% static 'images_png_or_svg/menu-icon.svg' %}" alt="Menu Icon" width="50" height="50">
+    </a>
+    <div class="logo">
+      <h1>StonksTracker</h1>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">
+        <img src="{% static 'images_png_or_svg/user-icon.png' %}" alt="User Icon" width="50" height="50">
+      </button>
+      <div class="dropdown-content">
+        <a href="{% if user.is_authenticated %}#account{% else %}{% url 'login' %}{% endif %}">Account</a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+      </div>
+    </div>
   </header>
-  <div class="container">
-    <h2>Your home page content goes here!</h2>
+
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <ul>
+      <li><a href="#">Dashboards</a></li>
+      <li><a href="#">Item List</a></li>
+      <li><a href="#">Settings</a></li>
+      <li><a href="#">Forums</a></li>
+      <li><a href="#">FAQs</a></li>
+    </ul>
+  </div>
+
+  <div id="main" class="main-container">
+    <div class="container">
+      <div class="content">
+        <h2>Welcome to StonksTracker!</h2>
+        <p>Your home page content goes here.</p>
+        {% if user.is_authenticated %}
+          <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+          <a href="{% url 'login' %}">Login</a>
+          <a href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
+      </div>
+    </div>
   </div>
 </body>
 </html>

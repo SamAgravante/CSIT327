@@ -1,12 +1,66 @@
-<h1>Your Watchlist</h1>
-<ul>
-    {% for item in watchlist_items %}
-        <li>
-            <h3>{{ item.name }}</h3>
-            <p>Price: {{ item.price }}</p>
-            <img src="{{ item.image_url }}" alt="{{ item.name }}" width="100">
-        </li>
-    {% empty %}
-        <li>Your watchlist is empty.</li>
-    {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watchlist</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        img {
+            height: 50px;
+            width: 50px;
+        }
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Watchlist</h1>
+    <a href="{% url 'index' %}">Back to Home</a>
+    <a href="{% url 'items_list' %}">Item List</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td><img src="{{ item.image_url }}" alt="Item Image"></td>
+                    <td>{{ item.name }}</td>
+                    <td>₱ {{ item.price }}</td>
+                    <td>
+                        <form action="{% url 'delete_from_watchlist' %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="item_id" value="{{ item.item_id }}">
+                            <button type="submit" style="color: red;">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Your watchlist is empty!</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

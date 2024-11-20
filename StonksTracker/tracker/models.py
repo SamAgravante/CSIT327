@@ -9,14 +9,13 @@ class User(models.Model):
         return self.username
 
 class Watchlist(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     item_id = models.CharField(max_length=100, unique=True, null=True)  # ItemID from API
     name = models.CharField(max_length=255, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     image_url = models.URLField(max_length=500, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.name} - {self.user.username}"
+        return f"{self.name}"
 
 class Forums(models.Model):
     title = models.CharField(max_length=255)

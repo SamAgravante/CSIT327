@@ -1,25 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create Post</title>
-</head>
-<body>
-    <div style="justify-content: center; align-content: start; border: 2px solid black; padding: 20px; margin: 10px; width: 400px;">
-        <h1 style="font-family: sans-serif; font-size: 30px;">Create a New Post</h1>
-        <form method="post">
-            {% csrf_token %}
-            <label for="title" style="font-size: 16px;">Title:</label>
-            <input type="text" name="title" id="title" required style="width: 100%; padding: 5px; margin-bottom: 10px;">
+{% extends 'index.html' %}
+{% load static %}
 
-            <label for="user" style="font-size: 16px;">Your Name (optional):</label>
-            <input type="text" name="user" id="user" style="width: 100%; padding: 5px; margin-bottom: 10px;">
-            
-            <label for="content" style="font-size: 16px;">Content:</label>
-            <textarea name="content" id="content" required style="width: 100%; height: 100px; padding: 5px;"></textarea>
-            
-            <button type="submit" style="font-size: 16px; padding: 10px; margin-top: 10px;">Submit</button>
-        </form>
-    </div>
-</body>
-</html>
+{% block title %}Create Post{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/createpost.css' %}">
+<div class="content">
+    <h1>Create a New Post</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" required>
+
+        <label for="user">Your Name (optional):</label>
+        <input type="text" name="user" id="user">
+
+        <label for="content">Content:</label>
+        <textarea name="content" id="content" required></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

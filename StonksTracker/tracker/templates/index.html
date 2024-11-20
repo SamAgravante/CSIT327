@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+    {% block header %}
     <div class="navbar">
         <div class="logo">
             <center><h1>StonksTracker</h1></center>
@@ -17,17 +18,15 @@
         <div class="menu">
             <a href="{% url 'watchlist' %}">Dashboard</a> 
             <a href="{% url 'items_list' %}">Item List</a>
-            <a href="">Settings</a>
             <a href="{% url 'forums' %}">Forums</a>
-            <a href="">FAQs</a>
+            <a href="{% url 'faq' %}">FAQs</a>
         </div>
         </center>
     </div>
-    <div class="search-bar">
-        <center><input type="text" placeholder="Search Items"></center>
-    </div>
-    <div class="content">
-        {% block content %}{% endblock %}
-    </div>
+    
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
 </body>
 </html>

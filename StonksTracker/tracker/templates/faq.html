@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}FAQs - StonksTracker{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/faq.css' %}">
+<div class="container">
+    <div class="faq-header">
+        <div class="faq-text">
+            <h1 class="faq-title">FAQs</h1>
+            <p class="faq-description">
+                Have questions? This is where you'll find answers about StonksTracker. Learn how to navigate the app, understand price updates, and make the most of your tracking experience.
+            </p>
+        </div>
+        <img src="{% static 'images/faq.png' %}" style="height: 230px; width: 230px;">
+    </div>
+    <hr style="margin-bottom: 20px;">
+    <div class="faq-list">
+        <div class="faq-item">
+            <h3 class="faq-question">What is a price deviation and how is it calculated?</h3>
+            <p class="faq-answer">
+                A price deviation refers to the difference between the current price of an item and its historical average. It's calculated by comparing the item's latest price with its average price over a set period.
+            </p>
+        </div>
+        <hr width="75%" style="margin-bottom: 20px;">
+        <div class="faq-item">
+            <h3 class="faq-question">Why do prices fluctuate?</h3>
+            <p class="faq-answer">
+                Prices can fluctuate due to various factors such as changes in supply and demand, market trends, and updates or new releases in the game.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

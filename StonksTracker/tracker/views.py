@@ -75,3 +75,6 @@ def delete_from_watchlist(request):
 def watchlist(request):
     items = Watchlist.objects.all()
     return render(request, 'watchlist.html', {'items': items})
+
+def faq(request):
+    return render(request, 'faq.html')

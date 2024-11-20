@@ -10,4 +10,5 @@ urlpatterns = [
     path('add-to-watchlist/', views.add_to_watchlist, name='add_to_watchlist'),
     path('watchlist/', views.watchlist, name='watchlist'),
     path('delete-from-watchlist/', views.delete_from_watchlist, name='delete_from_watchlist'),
+    path('faq/', views.faq, name='faq'),
 ]

@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from .models import Forums
 from .models import Watchlist
 import requests # type: ignore
-from django.http import JsonResponse
+from django.shortcuts import redirect
+from django.contrib import messages
 
 def index(request):
     return render(request, 'index.html')
@@ -31,7 +32,7 @@ def items_list(request):
     params = {
         'key': 'WH1SLQ1PX2CHGLK0',
         'max': 1000,
-        'sort_by': 'priceRealAz',
+        'sort_by': 'name',
         'price_min': 0.001,
         'currency': 'PHP'
     }
@@ -60,11 +61,11 @@ def add_to_watchlist(request):
                 price=price,
                 image_url=image_url
             )
-            return JsonResponse({'success': True, 'message': 'Item added to watchlist!'})
+            messages.success(request, 'Item added to watchlist!')
         else:
-            return JsonResponse({'success': False, 'message': 'Item already in watchlist!'})
+            messages.error(request, 'Item already in watchlist!')
 
-    return JsonResponse({'success': False, 'message': 'Invalid request!'})
+    return redirect('items_list')
 
 def delete_from_watchlist(request):
     if request.method == "POST":

@@ -1,39 +1,52 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Item List</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin-right: 50px;
-            margin-left: 50px;
-        }
+{% extends 'index.html' %}
+{% load static %}
 
-        img {
-            height: 100px;
-            width: 100px;
-        }
-    </style>
-</head>
-<body>
-    <a href="{% url 'index' %}">Home</a>
-    <a href="{% url 'watchlist' %}">View Watchlist</a>
-    <h1>Item List</h1>
-    <ul>
-        {% for item in items %}
-            <li>
-                <h3>{{ item.markethashname }} - {{ item.id }}</h3>
-                <p>Price: ₱ {{ item.pricelatest }}</p>
-                <img src="{{ item.itemimage }}" />
-                <form action="{% url 'add_to_watchlist' %}" method="post" style="display:inline;">
-                    {% csrf_token %}
-                    <input type="hidden" name="item_id" value="{{ item.id }}">
-                    <input type="hidden" name="name" value="{{ item.markethashname }}">
-                    <input type="hidden" name="price" value="{{ item.pricelatest }}">
-                    <input type="hidden" name="image_url" value="{{ item.itemimage }}">
-                    <button type="submit">Add to Watchlist</button>
-                </form>
-                <hr>
-            </li>
-        {% endfor %}
-    </ul>
+{% block title %}Item List - StonksTracker{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/item_list.css' %}">
+<h1 class="itemlist-header">Item List</h1>
+<hr width="1200px">
+<div class="content">
+    <div class="search-bar">
+        <center><input type="text" placeholder="Search Items"></center>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td><img src="{{ item.itemimage }}" alt="{{ item.markethashname }}"></td>
+                <td>{{ item.id }}</td>
+                <td>{{ item.markethashname }}</td>
+                <td>₱ {{ item.pricelatest }}</td>
+                <td>
+                    <form action="{% url 'add_to_watchlist' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                        <input type="hidden" name="name" value="{{ item.markethashname }}">
+                        <input type="hidden" name="price" value="{{ item.pricelatest }}">
+                        <input type="hidden" name="image_url" value="{{ item.itemimage }}">
+                        <button type="submit" style="border: none; background: none; padding: 0;">
+                            <img src="{% static 'images/addbtn.png' %}" style="width: 34px; height: 34px; cursor: pointer;">
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No items found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

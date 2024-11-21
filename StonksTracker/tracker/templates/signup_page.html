@@ -8,12 +8,12 @@
   <link rel="stylesheet" href="{% static 'css/signup.css' %}">
   <link rel="stylesheet" href="{% static 'css/header.css' %}">
   <script src="{% static 'javascript/menu-sidebar.js' %}" defer></script>
+  <style>
+    .background-image {
+      background-image: url("{% static 'images/vector-bg-stonks.png' %}");
+    }
+  </style>
 </head>
-<style>
-  .background-image {
-    background-image: url("{% static 'images/vector-bg-stonks.png' %}");
-  }
-</style>
 <body class="background-image" style="background-size: 100% 45%; background-position: center bottom; background-repeat: no-repeat;">
   
   <header>
@@ -39,11 +39,11 @@
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <ul>
-    <li><a href="{% url 'watchlist' %}">Dashboard</a></li>
-    <li><a href="{% url 'items_list' %}">Item List</a></li>
-    <li><a href="{% url 'items_list' %}">Settings</a></li>
-    <li><a href="{% url 'forums' %}">Forums</a></li>
-    <li><a href="{% url 'faq' %}">FAQs</a></li>
+      <li><a href="{% url 'watchlist' %}">Dashboard</a></li>
+      <li><a href="{% url 'items_list' %}">Item List</a></li>
+      <li><a href="{% url 'items_list' %}">Settings</a></li>
+      <li><a href="{% url 'forums' %}">Forums</a></li>
+      <li><a href="{% url 'faq' %}">FAQs</a></li>
     </ul>
   </div>
 
@@ -69,9 +69,6 @@
       {{ form.password2.errors }}
       <button type="submit" class="signup-btn">SIGN UP</button>
     </form>
-    
-    
-    
 
     <div class="login-link">
       <a href="{% url 'login' %}">Already have an account?</a>
@@ -79,5 +76,4 @@
   </div>
   
 </body>
-
 </html>

@@ -1,4 +1,4 @@
-{% static %}
+
 
 body {
     font-family: Arial, sans-serif;
@@ -111,7 +111,6 @@ main {
 }
 
 .background-image {
-    background-image: url("{% static 'images/vector-bg-stonks.png' %}");
     background-size: 100% 45%;
     background-position: center bottom;
     background-repeat: no-repeat;

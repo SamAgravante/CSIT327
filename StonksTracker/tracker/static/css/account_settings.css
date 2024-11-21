@@ -1,0 +1,188 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: white;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+    flex-direction: column;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #0f29e5;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+}
+
+.menu-icon, .user-icon {
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+}
+
+.menu-icon img, .user-icon img {
+    width: 50px;
+    height: 50px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+}
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    background-color: #0f29e5;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #575757;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 70px); /* Adjust based on header height */
+    margin-top: 70px; /* Adjust based on header height */
+    background-image: url("{% static 'images_png_or_svg/vector-bg-stonks.png' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9); /* Optional: Add a background color with transparency */
+    border-radius: 10px;
+    padding: 40px 60px;
+    width: 600px;
+    text-align: center;
+}
+
+.container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #0f29e5;
+}
+
+.user-list {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+}
+
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    color: #0f29e5;
+}
+
+.user-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-btn, .delete-btn, .change-password-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.edit-btn {
+    background-color: #0f29e5;
+}
+
+.edit-btn:hover {
+    background-color: #0d1fb3;
+}
+
+.delete-btn {
+    background-color: #e53e3e;
+}
+
+.delete-btn:hover {
+    background-color: #c53030;
+}
+
+.change-password-btn {
+    background-color: #f6ad55;
+}
+
+.change-password-btn:hover {
+    background-color: #dd6b20;
+}
+
+footer {
+    margin-top: 20px;
+}
+
+.back-btn {
+    padding: 10px 15px;
+    background-color: #0f29e5;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    background-color: #0d1fb3;
+}

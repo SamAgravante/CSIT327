@@ -16,7 +16,7 @@
 
 
   .container {
-    background-color: #0f29e5;
+    background: radial-gradient(circle, rgba(43,39,246,1) 0%, rgba(33,30,195,1) 100%);
     border-radius: 10px;
     padding: 70px 90px;
     width: 1100px;
@@ -28,6 +28,14 @@
     margin-bottom: 10px;
     margin-top: -40px;
   }
+  .dropbtn {
+    background: radial-gradient(circle, rgba(43,39,246,1) 0%, rgba(33,30,195,1) 100%);
+  
+  padding: 16px;
+  font-size: 16px;
+  border: none; 
+}
+
   .steam-btn {
     background-color: white;
     color: black;

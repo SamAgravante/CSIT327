@@ -4,7 +4,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 10px 30px;
-    background-color: #0f29e5;
+    background: radial-gradient(circle, rgba(43,39,246,1) 0%, rgba(33,30,195,1) 100%);
     position: fixed;
     top: 0;
     z-index: 2;
@@ -67,7 +67,7 @@ header {
 }
 
 .dropbtn {
-    background-color: #0f29e5;
+  background: radial-gradient(circle, rgba(43,39,246,1) 0%, rgba(33,30,195,1) 100%);
     color: white;
     padding: 16px;
     font-size: 16px;

@@ -23,7 +23,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 10px 30px;
-    background-color: #0f29e5;
+    background: linear-gradient(90deg, rgba(59,55,255,1) 0%, rgba(30,25,209,1) 50%, rgba(33,30,195,1) 100%);
     position: fixed;
     top: 0;
     z-index: 2;
@@ -96,7 +96,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #0f29e5; /* Original background color */
+    background: radial-gradient(circle, rgba(43,39,246,1) 0%, rgba(33,30,195,1) 100%); /* Original background color */
     border-radius: 10px;
     padding: 70px 90px;
     width: 1100px;
@@ -128,18 +128,13 @@ header {
 }
 
 /* Dropdown Button */
-.dropbtn {
-  background-color: #0f29e5;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
+
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;
   display: inline-block;
+  
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -260,7 +255,7 @@ body {
 
 .navbar {
     justify-content: space-between;
-    background-color: #1a2fdb;
+    background: linear-gradient(90deg, rgba(59,55,255,1) 0%, rgba(30,25,209,1) 50%, rgba(33,30,195,1) 100%);
     color: white;
     padding: 1rem;
 }

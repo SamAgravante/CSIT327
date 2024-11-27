@@ -1,16 +1,19 @@
 body {
     font-family: sans-serif;
+    color: black; /* Set the default font color to black */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    color: black; /* Set the font color to black */
 }
 
 th, td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    color: black; /* Set the font color to black */
 }
 
 img {
@@ -26,10 +29,12 @@ a {
 .content {
     padding-left: 100px;
     padding-right: 100px;
+    color: black; /* Set the font color to black */
 }
 
 .watchlist-header {
     display: flex;
     align-content: center;
     justify-content: center;
+    color: black; /* Set the font color to black */
 }

@@ -5,23 +5,25 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/forum.css' %}">
-<div class="forums-container">
-    <h1 class="forums-title">Forums</h1>
-    <hr style="margin-top: 30px; margin-bottom: 30px;">
-    <center><a href="{% url 'create_post' %}" class="create-post">Create New Post</a></center>
-    <div class="forum-posts">
-        {% for forum in forums %}
-        <div class="forum-post">
-            <div class="post-header">
-                <span class="post-title">{{ forum.title }}</span>
-                <span class="post-date">{{ forum.dateCreated }}</span>
+<div class="container">
+    <div class="forums-container">
+        <h1 class="forums-title">Forums</h1>
+        <hr style="margin-top: 30px; margin-bottom: 30px;">
+        <center><a href="{% url 'create_post' %}" class="create-post">Create New Post</a></center>
+        <div class="forum-posts">
+            {% for forum in forums %}
+            <div class="forum-post">
+                <div class="post-header">
+                    <span class="post-title">{{ forum.title }}</span>
+                    <span class="post-date">{{ forum.dateCreated }}</span>
+                </div>
+                <div class="post-author">Posted by: {{ forum.user }}</div>
+                <div class="post-content">{{ forum.content }}</div>
+                <a href="{% url 'delete_post' forum.id %}" class="delete-post">Delete</a>
             </div>
-            <div class="post-author">Posted by: {{ forum.user }}</div>
-            <div class="post-content">{{ forum.content }}</div>
-            <a href="{% url 'delete_post' forum.id %}" class="delete-post">Delete</a>
+            {% endfor %}
         </div>
-        {% endfor %}
+        <div class="background"></div>
     </div>
-    <div class="background"></div>
 </div>
-    {% endblock %}
+{% endblock %}

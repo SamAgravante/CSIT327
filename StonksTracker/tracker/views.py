@@ -90,6 +90,68 @@ def logout_view(request):
     return redirect('index')
 
 
+@login_required
+def update_account_view(request):
+    user = request.user
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account updated successfully.')
+            return redirect('account_settings')
+    else:
+        form = CustomUserChangeForm(instance=user)
+    
+    return render(request, 'account_settings.html', {'form': form})
+
+
+@login_required
+def user_list_view(request):
+    users = User.objects.all()  # Fetch all users from the database
+    return render(request, 'user_list.html', {'users': users})
+
+
+@login_required
+def update_user_view(request, pk):
+    user = get_object_or_404(User, UserID=pk)  # Fetch user by primary key (ID)
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'User updated successfully.')
+            return redirect('user_list')  # Redirect to user list after update
+    else:
+        form = CustomUserChangeForm(instance=user)
+    
+    return render(request, 'update_user.html', {'form': form})
+
+
+@login_required
+def delete_user_view(request, pk):
+    user = get_object_or_404(User, UserID=pk)  # Fetch user by primary key (ID)
+    if request.method == 'POST':
+        user.delete()  # Delete user on POST request
+        messages.success(request, 'User deleted successfully.')
+        return redirect('user_list')  # Redirect to user list after deletion
+    
+    return render(request, 'delete_user.html', {'user': user})
+
+
+@login_required
+def change_password_view(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important! Keep the user logged in
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('home')  # Redirect to home or any other page
+    else:
+        form = PasswordChangeForm(request.user)
+
+    return render(request, 'change_password.html', {'form': form})
+
+
 
 
 def index(request):
@@ -100,6 +162,7 @@ def forum(request):
     return render(request, 'forums.html', {'forums': forums})
 
 
+@login_required
 def create_post(request):
     if request.method == 'POST':
         title = request.POST['title']
@@ -110,10 +173,13 @@ def create_post(request):
     return render(request, 'create_post.html')
 
 
+@login_required
 def delete_post(request, id):
     forum = Forums.objects.get(id=id)
     forum.delete()
     return redirect('forums')
+
+
 
 def items_list(request):
     api_url = "https://www.steamwebapi.com/steam/api/items"
@@ -135,7 +201,7 @@ def items_list(request):
 
     return render(request, 'item_list.html', {'items': items})
 
-
+    
 def add_to_watchlist(request):
     if request.method == "POST":
         item_id = request.POST.get('item_id')

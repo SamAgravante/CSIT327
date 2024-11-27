@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Update User - StonksTracker{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Update User</h1>
+    <form method="POST" action="{% url 'update_user' user.pk %}">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.as_p }}  <!-- Renders the form fields -->
+        <button type="submit">Update User</button>
+    </form>
+    <a href="{% url 'user_list' %}">Back to User List</a>
+</div>
+{% endblock %}

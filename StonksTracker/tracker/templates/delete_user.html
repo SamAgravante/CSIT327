@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Delete User - StonksTracker{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Delete User</h1>
+    <p>Are you sure you want to delete {{ user.username }}?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+    </form>
+    <a href="{% url 'user_list' %}">Cancel</a>
+</div>
+{% endblock %}

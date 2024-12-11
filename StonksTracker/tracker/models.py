@@ -53,6 +53,7 @@ class Watchlist(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='watchlists', null=True, blank=True
     )
+    #test
 
     def __str__(self):
         return f"{self.name} ({self.user.username})"

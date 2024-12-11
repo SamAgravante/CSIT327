@@ -210,16 +210,17 @@ def add_to_watchlist(request):
         price = request.POST.get('price')
         image_url = request.POST.get('image_url')
 
-        if not Watchlist.objects.filter(item_id=item_id).exists():
+        if not Watchlist.objects.filter(item_id=item_id, user=request.user).exists():
             Watchlist.objects.create(
                 item_id=item_id,
                 name=name,
                 price=price,
-                image_url=image_url
+                image_url=image_url,
+                user=request.user  # Associate with logged-in user
             )
             messages.success(request, 'Item added to watchlist!')
         else:
-            messages.error(request, 'Item already in watchlist!')
+            messages.error(request, 'Item already in your watchlist!')
 
     return redirect('items_list')
 
@@ -232,7 +233,7 @@ def delete_from_watchlist(request):
 
 @login_required
 def watchlist(request):
-    items = Watchlist.objects.all()
+    items = Watchlist.objects.filter(user=request.user)
     return render(request, 'watchlist.html', {'items': items})
 
 @login_required

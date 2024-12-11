@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Watchlist, PriceHistory  # Use your custom user model
+from .models import User, Watchlist  # Use your custom user model
 from django.contrib.auth.forms import UserCreationForm
 
 class CustomUserCreationForm(UserCreationForm):

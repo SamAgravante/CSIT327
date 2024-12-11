@@ -49,11 +49,17 @@ class Watchlist(models.Model):
     item_id = models.CharField(max_length=100, unique=True, null=True)  # ItemID from API
     name = models.CharField(max_length=255, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    price_avg = models.DecimalField(max_digits=10, decimal_places=2, null=True)  # Average price from API
     image_url = models.URLField(max_length=500, null=True, blank=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='watchlists', null=True, blank=True
     )
-    #test
+
+    def price_deviation_percentage(self):
+        if self.price and self.price_avg and self.price_avg != 0:
+            deviation = ((self.price - self.price_avg) / self.price_avg) * 100
+            return round(deviation, 2)
+        return None
 
     def __str__(self):
         return f"{self.name} ({self.user.username})"
@@ -72,11 +78,3 @@ class Forums(models.Model):
     def __str__(self):
         return f"{self.title} by {self.user.username}"
 
-
-class PriceHistory(models.Model):
-    itemName = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    timestamp = models.DateTimeField()
-
-    def __str__(self):
-        return f"{self.itemName} - {self.price}"

@@ -14,7 +14,7 @@ from django import forms
 from django.http import HttpResponse, HttpResponseForbidden
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm 
 from .forms import CustomUserCreationForm
-from .models import User, Watchlist, PriceHistory, Forums # Ensure you import necessary models
+from .models import User, Watchlist, Forums # Ensure you import necessary models
 
 # Custom UserCreationForm to include email
 class CustomUserCreationForm(forms.ModelForm):
@@ -212,17 +212,28 @@ def add_to_watchlist(request):
         item_id = request.POST.get('item_id')
         name = request.POST.get('name')
         price = request.POST.get('price')
+        price_avg = request.POST.get('price_avg')  # Get the average price from the request
         image_url = request.POST.get('image_url')
 
+        # Validate the required fields
+        if not (item_id and name and price and price_avg):
+            messages.error(request, 'Incomplete item data!')
+            return redirect('items_list')
+
+        # Check if the item is already in the watchlist
         if not Watchlist.objects.filter(item_id=item_id, user=request.user).exists():
-            Watchlist.objects.create(
-                item_id=item_id,
-                name=name,
-                price=price,
-                image_url=image_url,
-                user=request.user  # Associate with logged-in user
-            )
-            messages.success(request, 'Item added to watchlist!')
+            try:
+                Watchlist.objects.create(
+                    item_id=item_id,
+                    name=name,
+                    price=price,
+                    price_avg=price_avg,  # Store the average price
+                    image_url=image_url,
+                    user=request.user  # Associate with logged-in user
+                )
+                messages.success(request, 'Item added to watchlist!')
+            except Exception as e:
+                messages.error(request, f"Error adding item: {str(e)}")
         else:
             messages.error(request, 'Item already in your watchlist!')
 
@@ -239,38 +250,6 @@ def delete_from_watchlist(request):
 @login_required
 def watchlist(request):
     items = Watchlist.objects.filter(user=request.user)
-    api_url = "https://www.steamwebapi.com/steam/api/items"
-    api_key = 'B3Z3J3HCPM0WWKCA'  # Replace with your actual API key
-
-    for item in items:
-        params = {'key': api_key, 'item_id': item.item_id, 'currency': 'PHP'}
-        try:
-            response = requests.get(api_url, params=params)
-            response.raise_for_status()  # Raise an error for HTTP codes >= 400
-
-            # Parse the API response
-            data = response.json()
-
-            # Check if the response is a list
-            if isinstance(data, list):
-                # Assuming the first item in the list contains the desired data
-                data = data[0] if data else {}
-
-            # Extract the latest price
-            price = data.get('pricelatest', 0) if isinstance(data, dict) else 0
-
-            # Save to PriceHistory if price data is valid
-            if price > 0:
-                PriceHistory.objects.create(
-                    itemName=item.name,
-                    price=price,
-                    timestamp=timezone.now()
-                )
-        except requests.RequestException as e:
-            print(f"Error fetching data for item {item.name}: {e}")
-        except Exception as e:
-            print(f"An unexpected error occurred for item {item.name}: {e}")
-
     return render(request, 'watchlist.html', {'items': items})
 
 @login_required

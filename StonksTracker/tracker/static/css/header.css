@@ -11,8 +11,6 @@ header {
 
 .navbar {
   width: 100%;
-  
-
   padding: 10px 0;
   background: radial-gradient(circle, rgba(43,39,246,1) 0%, rgba(33,30,195,1) 100%);
 }

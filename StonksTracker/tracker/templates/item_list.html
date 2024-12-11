@@ -35,7 +35,7 @@
                     <td><img src="{{ item.itemimage }}" alt="{{ item.markethashname }}"></td>
                     <td>{{ item.id }}</td>
                     <td>{{ item.markethashname }}</td>
-                    <td>₱ {{ item.pricelatest }}</td>
+                    <td>₱ {{ item.pricelatestsell }}</td>
                     <td>
                         <form action="{% url 'add_to_watchlist' %}" method="post" style="display:inline;">
                             {% csrf_token %}

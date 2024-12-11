@@ -1,11 +1,8 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import Forums
-from .models import Watchlist
+from django.utils import timezone
 import requests # type: ignore
-from django.shortcuts import redirect
-from django.contrib import messages
 
+from django.contrib import messages
+from django.utils import timezone
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
@@ -153,10 +150,11 @@ def change_password_view(request):
 
 
 
-
+@login_required
 def index(request):
     return render(request, 'index.html')
 
+@login_required
 def forum(request):
     forums = Forums.objects.all()
     return render(request, 'forums.html', {'forums': forums})
@@ -180,12 +178,12 @@ def delete_post(request, id):
     return redirect('forums')
 
 
-
+@login_required
 def items_list(request):
     api_url = "https://www.steamwebapi.com/steam/api/items"
     params = {
-        'key': 'WH1SLQ1PX2CHGLK0',
-        'max': 1000,
+        'key': 'B3Z3J3HCPM0WWKCA',
+        'max': 50,
         'sort_by': 'name',
         'price_min': 0.001,
         'currency': 'PHP'
@@ -201,7 +199,7 @@ def items_list(request):
 
     return render(request, 'item_list.html', {'items': items})
 
-    
+@login_required
 def add_to_watchlist(request):
     if request.method == "POST":
         item_id = request.POST.get('item_id')
@@ -223,7 +221,7 @@ def add_to_watchlist(request):
 
     return redirect('items_list')
 
-
+@login_required
 def delete_from_watchlist(request):
     if request.method == "POST":
         item_id = request.POST.get('item_id')
@@ -231,9 +229,44 @@ def delete_from_watchlist(request):
     return redirect('watchlist')
 
 
+@login_required
 def watchlist(request):
     items = Watchlist.objects.filter(user=request.user)
+    api_url = "https://www.steamwebapi.com/steam/api/items"
+    api_key = 'B3Z3J3HCPM0WWKCA'  # Replace with your actual API key
+
+    for item in items:
+        params = {'key': api_key, 'item_id': item.item_id, 'currency': 'PHP'}
+        try:
+            response = requests.get(api_url, params=params)
+            response.raise_for_status()  # Raise an error for HTTP codes >= 400
+
+            # Parse the API response
+            data = response.json()
+
+            # Check if the response is a list
+            if isinstance(data, list):
+                # Assuming the first item in the list contains the desired data
+                data = data[0] if data else {}
+
+            # Extract the latest price
+            price = data.get('pricelatest', 0) if isinstance(data, dict) else 0
+
+            # Save to PriceHistory if price data is valid
+            if price > 0:
+                PriceHistory.objects.create(
+                    itemName=item.name,
+                    price=price,
+                    timestamp=timezone.now()
+                )
+        except requests.RequestException as e:
+            print(f"Error fetching data for item {item.name}: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred for item {item.name}: {e}")
+
     return render(request, 'watchlist.html', {'items': items})
 
+@login_required
 def faq(request):
     return render(request, 'faq.html')
+

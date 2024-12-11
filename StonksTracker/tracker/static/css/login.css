@@ -14,6 +14,10 @@
     margin: 0;
   }
 
+  .welcome {
+    color: white;
+  }
+
 
   .container {
     background: radial-gradient(circle, rgba(43,39,246,1) 0%, rgba(33,30,195,1) 100%);

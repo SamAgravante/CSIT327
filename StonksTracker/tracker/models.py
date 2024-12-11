@@ -64,9 +64,10 @@ class Forums(models.Model):
     content = models.TextField()
     dateCreated = models.DateTimeField(auto_now_add=True)
     lastEdited = models.DateTimeField(auto_now=True)
+    isEdited = models.BooleanField(default=False)
     user = models.ForeignKey(
-    User, on_delete=models.CASCADE, related_name='forums', null=True, blank=True
-)
+        User, on_delete=models.CASCADE, related_name='forums', null=True, blank=True
+    )
 
     def __str__(self):
         return f"{self.title} by {self.user.username}"

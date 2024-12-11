@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Profile Page{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/user_detail.css' %}">
+
+<div class="profile-page-container">
+    <h1>Profile Page</h1>
+    <hr>
+    <div class="profile-card">
+        <div class="info-item">
+            <label>User ID:</label>
+            <span>{{ user.UserID }}</span>
+        </div>
+        <div class="info-item">
+            <label>Username:</label>
+            <span>{{ user.username }}</span>
+        </div>
+        <div class="info-item">
+            <label>Email:</label>
+            <span>{{ user.email }}</span>
+        </div>
+        <div class="info-item">
+            <label>Username:</label>
+            <span>Stonks User</span> <!-- Static text to match the image -->
+        </div>
+        <div class="actions">
+            <a href="{% url 'edit_user' user.UserID %}" class="btn btn-primary">Edit Profile</a>
+            <a href="{% url 'delete_user' user.UserID %}" class="btn btn-danger">Delete Account</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

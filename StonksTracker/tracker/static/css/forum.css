@@ -61,7 +61,7 @@ body {
 }
 
 .post-title {
-    font-size: 1.2rem;
+    font-size: 22px;
     font-weight: bold;
     color: black; /* Set the font color to black */
 }
@@ -79,11 +79,29 @@ body {
     color: black; /* Set the font color to black */
 }
 
+.post-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+}
+  
+
+.edit-post {
+    color: blue;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+  
 .delete-post {
     display: block;
     color: red;
     text-align: right;
-    margin-top: 0.5rem;
+    margin-top: 10px;
+}
+
+.edited {
+    font-style: italic;
 }
 
 .background {

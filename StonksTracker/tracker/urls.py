@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('home/', views.index, name='landing_page'),
     path('signup/', views.register_view, name='signup'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
@@ -21,4 +22,9 @@ urlpatterns = [
     path('watchlist/', views.watchlist, name='watchlist'),
     path('delete-from-watchlist/', views.delete_from_watchlist, name='delete_from_watchlist'),
     path('faq/', views.faq, name='faq'),
+    path('forums/edit/<int:id>/', views.edit_post, name='edit_post'),
+    #User Page
+    path('users/<int:pk>/', views.user_detail, name='user_detail'),
+    path('users/<int:pk>/edit/', views.edit_user, name='edit_user'),
+    path('users/<int:pk>/delete/', views.delete_user, name='delete_user'),
 ]

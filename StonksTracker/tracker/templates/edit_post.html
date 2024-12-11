@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/createpost.css' %}">
+<div class="content">
+    <h1>Edit Post</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" value="{{ forum.title }}" required>
+
+        <label for="content">Content:</label>
+        <textarea name="content" id="content" required>{{ forum.content }}</textarea>
+
+        <button type="submit">Update Post</button>
+    </form>
+</div>
+{% endblock %}

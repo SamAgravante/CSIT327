@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="{% static 'css/header.css' %}">
 
 <div class="container" >
-    <h1>Welcome!</h1>
+    <h1 class="welcome">Welcome!</h1>
     <div class="separator">Login to your Account</div>
 
     <!-- Login Form -->
@@ -23,10 +23,6 @@
         {{ form.password.errors }}
         <!-- Submit button -->
         <button type="submit" class="login-btn">LOG IN</button>
-
-        {% for message in messages %}
-        <div class="alert">{{ message }}</div>
-        {% endfor %}
     </form>
 
     <div class="signup-link">

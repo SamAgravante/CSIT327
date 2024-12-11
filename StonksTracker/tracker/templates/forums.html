@@ -22,11 +22,27 @@
             <div class="forum-post" style="width: 100%;">
                 <div class="post-header">
                     <span class="post-title">{{ forum.title }}</span>
-                    <span class="post-date">{{ forum.dateCreated }}</span>
+                    <span class="post-date">
+                        {{ forum.dateCreated }}
+                        {% if forum.isEdited == True %}
+                        <div class="post-actions">
+                            <p class="edited">Edited</p>
+                        </div>
+                        {% endif %}
+                    </span>
                 </div>
-                <div class="post-author">Posted by: {{ forum.user }}</div>
+                <div class="post-header">
+                    <div class="post-author">Posted by: {{ forum.user }}</div>
+                </div>
+                
                 <div class="post-content">{{ forum.content }}</div>
-                <a href="{% url 'delete_post' forum.id %}" class="delete-post">Delete</a>
+
+                {% if forum.user == request.user %}
+                <div class="post-actions">
+                    <a href="{% url 'edit_post' forum.id %}" class="edit-post">Edit</a>
+                    <a href="{% url 'delete_post' forum.id %}" class="delete-post">Delete</a>
+                </div>
+                {% endif %}
             </div>
             {% endfor %}
         </div>

@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib import messages
 from django import forms
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm 
 from .forms import CustomUserCreationForm
 from .models import User, Watchlist, PriceHistory, Forums # Ensure you import necessary models
@@ -174,6 +174,8 @@ def create_post(request):
 @login_required
 def delete_post(request, id):
     forum = Forums.objects.get(id=id)
+    if forum.user != request.user:
+        return HttpResponseForbidden("You are not allowed to delete this post.")
     forum.delete()
     return redirect('forums')
 
@@ -270,3 +272,55 @@ def watchlist(request):
 def faq(request):
     return render(request, 'faq.html')
 
+@login_required
+def edit_post(request, id):
+    forum = get_object_or_404(Forums, id=id)
+    
+    # Ensure only the post creator can edit
+    if forum.user != request.user:
+        return HttpResponseForbidden("You are not allowed to edit this post.")
+    
+    if request.method == 'POST':
+        forum.title = request.POST['title']
+        forum.content = request.POST['content']
+        forum.isEdited = True
+        forum.dateCreated = timezone.now()  # Update the created timestamp
+        forum.save()
+        messages.success(request, 'Post updated successfully.')
+        return redirect('forums')
+    
+    # Populate form with existing post data
+    return render(request, 'edit_post.html', {
+        'forum': forum
+    })
+
+@login_required
+def landing_page(request):
+    return render(request, 'landing.html')
+
+@login_required
+def user_detail(request, pk):
+    user = get_object_or_404(User, UserID=pk)
+    return render(request, 'user_detail.html', {'user': user})
+
+@login_required
+def edit_user(request, pk):
+    user = get_object_or_404(User, UserID=pk)
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'User profile updated successfully.')
+            return redirect('user_detail', pk=user.UserID)
+    else:
+        form = CustomUserChangeForm(instance=user)
+    return render(request, 'edit_user.html', {'form': form})
+
+@login_required
+def delete_user(request, pk):
+    user = get_object_or_404(User, UserID=pk)
+    if request.method == 'POST':
+        user.delete()
+        messages.success(request, 'User deleted successfully.')
+        return redirect('index')
+    return render(request, 'delete_user.html', {'user': user})

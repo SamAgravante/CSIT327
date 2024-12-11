@@ -1,0 +1,52 @@
+.profile-page-container {
+    text-align: center;
+    margin: 20px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #000;
+    margin: 20px auto;
+    width: 50%;
+}
+
+.profile-card {
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    text-align: left;
+}
+
+.info-item {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+label {
+    font-weight: bold;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}

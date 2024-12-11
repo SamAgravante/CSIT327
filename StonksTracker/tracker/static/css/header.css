@@ -10,6 +10,23 @@ header {
     z-index: 2;
 }
 
+.navbar {
+  width: 100%;
+  padding: 10px 0;
+  background: radial-gradient(circle, rgba(43,39,246,1) 0%, rgba(33,30,195,1) 100%);
+}
+
+.navbar a {
+  color: white;
+  padding: 14px 20px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.navbar a:hover {
+  background-color: #575757;
+}
+
 .menu-icon, .user-icon {
     font-size: 1.5rem;
     color: white;

@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
 <div class="container" style="background: transparent; box-shadow: 0 0px 0px;">
     
-    <div class="forums-container" style="background: transparent; box-shadow: 0 0px 0px; margin-bottom: 50px;">
+    <div class="forums-container" style="width: 800px; height: auto;">
         <h1 class="forums-title">Forums</h1>
-        <hr width="200%" style="margin: 30px auto;  ">
+        <hr width="170%" style="margin: 50px -245px; height: 1px; background-color: black; border: none;">
         <center><a href="{% url 'create_post' %}" class="create-post">Create New Post</a></center>
         <div class="forum-posts" style="overflow-y: scroll; max-height: 500px; max-width: 800px; -ms-overflow-style: none; scrollbar-width: none;"> <!-- Adjust the width and height as needed -->
             <style>
@@ -19,7 +19,7 @@
                 }
             </style>
             {% for forum in forums %}
-            <div class="forum-post">
+            <div class="forum-post" style="width: 100%;">
                 <div class="post-header">
                     <span class="post-title">{{ forum.title }}</span>
                     <span class="post-date">{{ forum.dateCreated }}</span>

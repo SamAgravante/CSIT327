@@ -153,10 +153,11 @@ def change_password_view(request):
 
 
 
-
+@login_required
 def index(request):
     return render(request, 'index.html')
 
+@login_required
 def forum(request):
     forums = Forums.objects.all()
     return render(request, 'forums.html', {'forums': forums})
@@ -180,7 +181,7 @@ def delete_post(request, id):
     return redirect('forums')
 
 
-
+@login_required
 def items_list(request):
     api_url = "https://www.steamwebapi.com/steam/api/items"
     params = {
@@ -201,7 +202,7 @@ def items_list(request):
 
     return render(request, 'item_list.html', {'items': items})
 
-    
+@login_required
 def add_to_watchlist(request):
     if request.method == "POST":
         item_id = request.POST.get('item_id')
@@ -222,17 +223,18 @@ def add_to_watchlist(request):
 
     return redirect('items_list')
 
-
+@login_required
 def delete_from_watchlist(request):
     if request.method == "POST":
         item_id = request.POST.get('item_id')
         Watchlist.objects.filter(item_id=item_id).delete()
     return redirect('watchlist')
 
-
+@login_required
 def watchlist(request):
     items = Watchlist.objects.all()
     return render(request, 'watchlist.html', {'items': items})
 
+@login_required
 def faq(request):
     return render(request, 'faq.html')

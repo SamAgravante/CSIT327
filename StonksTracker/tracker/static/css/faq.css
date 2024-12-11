@@ -7,7 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-start; /* Align items to the top */
-    
+    width: 100%;
     min-height: calc(100vh - 70px); /* Adjust based on header height */
     margin-top: 70px; /* Adjust based on header height */
     background-size: cover;
@@ -18,16 +18,14 @@
 
 .container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-     /* Optional: Add a background color with transparency */
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(200,200,200,1) 50%, rgba(245,245,245,1) 100%);
     border-radius: 10px;
-    padding: 40px 20px;
-    width: 90%; /* Increase the width */
-    max-width: 1200px; /* Increase the max-width */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    padding: 70px 90px;
+    width: 1100px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
 }
 
 .faq-header {

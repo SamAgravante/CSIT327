@@ -1,15 +1,59 @@
-{% extends 'index.html' %}
+<!DOCTYPE html>
 {% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StonksTracker - Log In</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <script src="{% static 'javascript/menu-sidebar.js' %}" defer></script>
+  <style>
+    .background-image {
+      background-image: url("{% static 'images/vector-bg-stonks.png' %}");
+    }
+  </style>
+</head>
+<body class="background-image" style="background-size: 100% 45%; background-position: center bottom; background-repeat: no-repeat;">
+  
+  <header>
+    <a href="javascript:void(0)" class="menu-icon" onclick="openNav()">
+      <img src="{% static 'images/menu-icon.svg' %}" alt="Menu Icon" width="50" height="50">
+    </a>
+    <div class="logo">
+      <h1>StonksTracker</h1>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">
+        <img src="{% static 'images/user-icon.png' %}" alt="User Icon" width="50" height="50">
+      </button>
+      <div class="dropdown-content">
+        <a href="{% if user.is_authenticated %}#account{% else %}{% url 'login' %}{% endif %}">Account</a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+  
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <ul>
+      <li><a href="{% url 'watchlist' %}">Dashboard</a></li>
+      <li><a href="{% url 'items_list' %}">Item List</a></li>
+      <li><a href="{% url 'items_list' %}">Settings</a></li>
+      <li><a href="{% url 'forums' %}">Forums</a></li>
+      <li><a href="{% url 'faq' %}">FAQs</a></li>
+    </ul>
+  </div>
 
-{% block title %}StonksTracker - Log In{% endblock %}
-
-{% block content %}
-<link rel="stylesheet" href="{% static 'css/login.css' %}">
-<link rel="stylesheet" href="{% static 'css/header.css' %}">
-
-<div class="container" >
+  <div class="container">
     <h1 class="welcome">Welcome!</h1>
-    <div class="separator">Login to your Account</div>
+    <div class="separator">
+        <div class="line"></div>
+        <span>Login to your Account</span>
+        <div class="line"></div>
+    </div>
 
     <!-- Login Form -->
     <form method="POST" action="{% url 'login' %}">
@@ -28,5 +72,7 @@
     <div class="signup-link">
         <a href="{% url 'signup' %}">Don't have an account?</a>
     </div>
-</div>
-{% endblock %}
+  </div>
+  
+</body>
+</html>

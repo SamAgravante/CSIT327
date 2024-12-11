@@ -27,7 +27,7 @@
             <span>**********</span> <!-- Static text to match the image -->
         </div>
         <div class="actions">
-            <a href="{% url 'edit_user' user.UserID %}" class="btn btn-primary">Edit Profile</a>
+            <a href="{% url 'update_user' user.UserID %}" class="btn btn-primary">Edit Profile</a>
             <a href="{% url 'delete_user' user.UserID %}" class="btn btn-danger">Delete Account</a>
         </div>
     </div>

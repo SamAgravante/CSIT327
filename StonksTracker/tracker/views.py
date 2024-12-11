@@ -116,11 +116,11 @@ def update_user_view(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'User updated successfully.')
-            return redirect('user_list')  # Redirect to user list after update
+            return redirect('user_detail', pk=user.UserID)  # Redirect to user detail after update
     else:
         form = CustomUserChangeForm(instance=user)
     
-    return render(request, 'update_user.html', {'form': form})
+    return render(request, 'update_user.html', {'form': form, 'user': user})
 
 
 @login_required
@@ -129,7 +129,7 @@ def delete_user_view(request, pk):
     if request.method == 'POST':
         user.delete()  # Delete user on POST request
         messages.success(request, 'User deleted successfully.')
-        return redirect('user_list')  # Redirect to user list after deletion
+        return redirect('login_page')  # Redirect to user list after deletion
     
     return render(request, 'delete_user.html', {'user': user})
 
@@ -325,5 +325,5 @@ def delete_user(request, pk):
     if request.method == 'POST':
         user.delete()
         messages.success(request, 'User deleted successfully.')
-        return redirect('index')
+        return redirect('login_page.html')
     return render(request, 'delete_user.html', {'user': user})

@@ -39,12 +39,32 @@
 
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <ul>
-            <li><a href="{% url 'watchlist' %}">Dashboard</a></li>
-            <li><a href="{% url 'items_list' %}">Item List</a></li>
-            <li><a href="{% if user.is_authenticated %}{% url 'user_list' %}{% else %}{% url 'login' %}{% endif %}">Settings</a></li>
-            <li><a href="{% url 'forums' %}">Forums</a></li>
-            <li><a href="{% url 'faq' %}">FAQs</a></li>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="margin: 10px 0; align-items: center;">
+                <a href="{% url 'landing_page' %}" style="text-decoration: none; color: #000; font-size: 24px; display: flex; align-items: center;">
+                    <img src="{% static 'images/Homeicon.png' %}" alt="Menu Icon" style="margin-right: 10px; width: 25px; height: 25px; vertical-align: middle;">Home
+                </a>
+            </li>
+            <li style="margin: 10px 0; align-items: center;">
+                <a href="{% url 'watchlist' %}" style="text-decoration: none; color: #000; font-size: 24px; display: flex; align-items: center;">
+                    <img src="{% static 'images/Dashboardicon.png' %}" alt="Menu Icon" style="margin-right: 10px; width: 25px; height: 25px; vertical-align: middle;">Dashboard
+                </a>
+            </li>
+            <li style="margin: 10px 0; align-items: center;">
+                <a href="{% url 'items_list' %}" style="text-decoration: none; color: #000; font-size: 24px; display: flex; align-items: center;">
+                    <img src="{% static 'images/Listicon.png' %}" alt="Menu Icon" style="margin-right: 10px; width: 25px; height: 25px; vertical-align: middle;">Item List
+                </a>
+            </li>
+            <li style="margin: 10px 0; align-items: center;">
+                <a href="{% url 'forums' %}" style="text-decoration: none; color: #000; font-size: 24px; display: flex; align-items: center;">
+                    <img src="{% static 'images/forumicon.png' %}" alt="Menu Icon" style="margin-right: 10px; width: 25px; height: 25px; vertical-align: middle;">Forums
+                </a>
+            </li>
+            <li style="margin: 10px 0; align-items: center;">
+                <a href="{% url 'faq' %}" style="text-decoration: none; color: #000; font-size: 24px; display: flex; align-items: center;">
+                    <img src="{% static 'images/faqicon.png' %}" alt="Menu Icon" style="margin-right: 10px; width: 25px; height: 25px; vertical-align: middle;">FAQs
+                </a>
+            </li>
         </ul>
         
     </div>

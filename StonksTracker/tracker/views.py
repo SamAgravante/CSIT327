@@ -294,6 +294,7 @@ def edit_post(request, id):
         'forum': forum
     })
 
+#debug
 @login_required
 def landing_page(request):
     return render(request, 'landing.html')

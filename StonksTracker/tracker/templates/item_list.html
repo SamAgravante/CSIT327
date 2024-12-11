@@ -5,48 +5,57 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/item_list.css' %}">
-<h1 class="itemlist-header">Item List</h1>
-<hr width="1200px">
-<div class="content">
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+<h1 class="itemlist-header" >Item List</h1>
+<hr width="1200px" style="margin-bottom:50px">
+
+<div class="content" style="margin-bottom:-100px">
     <div class="search-bar">
         <center><input type="text" placeholder="Search Items"></center>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in items %}
-            <tr>
-                <td><img src="{{ item.itemimage }}" alt="{{ item.markethashname }}"></td>
-                <td>{{ item.id }}</td>
-                <td>{{ item.markethashname }}</td>
-                <td>₱ {{ item.pricelatest }}</td>
-                <td>
-                    <form action="{% url 'add_to_watchlist' %}" method="post" style="display:inline;">
-                        {% csrf_token %}
-                        <input type="hidden" name="item_id" value="{{ item.id }}">
-                        <input type="hidden" name="name" value="{{ item.markethashname }}">
-                        <input type="hidden" name="price" value="{{ item.pricelatest }}">
-                        <input type="hidden" name="image_url" value="{{ item.itemimage }}">
-                        <button type="submit" style="border: none; background: none; padding: 0;">
-                            <img src="{% static 'images/Add.png' %}" style="width: 34px; height: 34px; cursor: pointer;">
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5">No items found.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div style="overflow-y: scroll; max-height: 500px; -ms-overflow-style: none; ">
+        <style>
+            .content::-webkit-scrollbar {
+                display: none;
+            }
+        </style>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td><img src="{{ item.itemimage }}" alt="{{ item.markethashname }}"></td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.markethashname }}</td>
+                    <td>₱ {{ item.pricelatest }}</td>
+                    <td>
+                        <form action="{% url 'add_to_watchlist' %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="item_id" value="{{ item.id }}">
+                            <input type="hidden" name="name" value="{{ item.markethashname }}">
+                            <input type="hidden" name="price" value="{{ item.pricelatest }}">
+                            <input type="hidden" name="image_url" value="{{ item.itemimage }}">
+                            <button type="submit" style="border: none; background: none; padding: 0;">
+                                <img src="{% static 'images/Add.png' %}" style="width: 34px; height: 34px; cursor: pointer;">
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No items found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

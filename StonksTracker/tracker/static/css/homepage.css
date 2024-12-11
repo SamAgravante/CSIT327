@@ -256,9 +256,10 @@ body {
 
 .navbar {
     justify-content: space-between;
-    background: linear-gradient(90deg, rgba(59,55,255,1) 0%, rgba(30,25,209,1) 50%, rgba(33,30,195,1) 100%);
+    
     color: white;
     padding: 1rem;
+    
 }
 
 .navbar .logo h1 {

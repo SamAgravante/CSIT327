@@ -21,11 +21,16 @@ body {
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin-top: -500px;
+    overflow-y: scroll; max-height: 500px; -ms-overflow-style: none; scrollbar-width: none;
 }
-
+.content::-webkit-scrollbar {
+    display: none;
+}
 .itemlist-header {
     text-align: left;
     margin-bottom: 20px;
+    
 }
 
 .search-bar {

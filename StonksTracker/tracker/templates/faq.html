@@ -1,79 +1,38 @@
-<!DOCTYPE html>
+{% extends 'index.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQs - StonksTracker</title>
-    <link rel="stylesheet" href="{% static 'css/faq.css' %}">
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
-    <script src="{% static 'javascript/menu-sidebar.js' %}" defer></script>
-    <style>
-        .background-image {
-          background-image: url("{% static 'images/vector-bg-stonks.png' %}");
-        }
-      </style>
-</head>
-<body class="background-image" style="background-size: 100% 45%; background-position: center bottom; background-repeat: no-repeat;">
- 
-    <header>
-        <a href="javascript:void(0)" class="menu-icon" onclick="openNav()">
-            <img src="{% static 'images/menu-icon.svg' %}" alt="Menu Icon" width="50" height="50">
-        </a>
-        <div class="logo">
-            <h1>StonksTracker</h1>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn">
-                <img src="{% static 'images/user-icon.png' %}" alt="User Icon" width="50" height="50">
-            </button>
-            <div class="dropdown-content">
-                <a href="{% if user.is_authenticated %}#S{% else %}{% url 'login' %}{% endif %}">Account</a>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}">Logout</a>
-                {% endif %}
-            </div>
-        </div>
-    </header>
 
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <ul>
-            <li><a href="{% url 'watchlist' %}">Dashboard</a></li>
-            <li><a href="{% url 'items_list' %}">Item List</a></li>
-            <li><a href="{% url 'forums' %}">Forums</a></li>
-            <li><a href="{% url 'faq' %}">FAQs</a></li>
-        </ul>
-    </div>
+{% block title %}FAQs - StonksTracker{% endblock %}
 
-    <div id="main" class="main-container">
-        <div class="container">
-            <div class="faq-header">
-                <div class="faq-text">
-                    <h1 class="faq-title">FAQs</h1>
-                    <p class="faq-description">
-                        Have questions? This is where you'll find answers about StonksTracker. Learn how to navigate the app, understand price updates, and make the most of your tracking experience.
-                    </p>
-                </div>
-                <img src="{% static 'images/faq.png' %}" style="height: 230px; width: 230px; margin-right: -115px;">
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/faq.css' %}">
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+<div id="main" class="main-container" >
+    <div class="container" style="background: transparent; box-shadow: 0 0px 0px ">
+        <div class="faq-header">
+            <div class="faq-text">
+                <h1 class="faq-title" style="margin-right: -315px; ">FAQs</h1>
+                <p class="faq-description" style="margin-right: -165px;" >
+                    Have questions? This is where you'll find answers about StonksTracker. Learn how to navigate the app, understand price updates, and make the most of your tracking experience.
+                </p>
             </div>
-            <hr width="180%" style="margin-bottom: 10px; margin-left: -160px;">
-            <div class="faq-list">
-                <div class="faq-item">
-                    <h3 class="faq-question">What is a price deviation and how is it calculated?</h3>
-                    <p class="faq-answer">
-                        A price deviation refers to the difference between the current price of an item and its historical average. It's calculated by comparing the item's latest price with its average price over a set period.
-                    </p>
-                </div>
-                <hr width="75%" style="margin-bottom: 20px;">
-                <div class="faq-item">
-                    <h3 class="faq-question">Why do prices fluctuate?</h3>
-                    <p class="faq-answer">
-                        Prices can fluctuate due to various factors such as changes in supply and demand, market trends, and updates or new releases in the game.
-                    </p>
-                </div>
+            <img src="{% static 'images/faq.png' %}" style="height: 230px; width: 230px; margin-right: -5px;">
+        </div>
+        <hr width="110%"  style="margin: center;">
+        <div class="faq-list">
+            <div class="faq-item">
+                <h3 class="faq-question">What is a price deviation and how is it calculated?</h3>
+                <p class="faq-answer">
+                    A price deviation refers to the difference between the current price of an item and its historical average. It's calculated by comparing the item's latest price with its average price over a set period.
+                </p>
+            </div>
+            <hr width="110%" style="margin: center;">
+            <div class="faq-item">
+                <h3 class="faq-question">Why do prices fluctuate?</h3>
+                <p class="faq-answer">
+                    Prices can fluctuate due to various factors such as changes in supply and demand, market trends, and updates or new releases in the game.
+                </p>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

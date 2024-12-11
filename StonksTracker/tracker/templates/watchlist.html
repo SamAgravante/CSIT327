@@ -5,13 +5,19 @@
 
 {% block content %}
     <link rel="stylesheet" href="{% static 'css/watchlist.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
     <div class="content">
         <h1 class="watchlist-header">Your Watchlist</h1>
         <hr>
         <div class="search-bar">
             <center><input type="text" placeholder="Search Items"></center>
         </div>
+        <div style="overflow-y: scroll; max-height: 500px; -ms-overflow-style: none; ">
+            <style>
+                .content::-webkit-scrollbar {
+                    display: none;
+                }
+            </style>
         <table>
             <thead>
                 <tr>

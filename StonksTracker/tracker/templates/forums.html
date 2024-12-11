@@ -5,12 +5,19 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/forum.css' %}">
-<div class="container">
-    <div class="forums-container">
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+<div class="container" style="background: transparent; box-shadow: 0 0px 0px;">
+    
+    <div class="forums-container" style="background: transparent; box-shadow: 0 0px 0px; margin-bottom: 50px;">
         <h1 class="forums-title">Forums</h1>
-        <hr style="margin-top: 30px; margin-bottom: 30px;">
+        <hr width="200%" style="margin: 30px auto;  ">
         <center><a href="{% url 'create_post' %}" class="create-post">Create New Post</a></center>
-        <div class="forum-posts">
+        <div class="forum-posts" style="overflow-y: scroll; max-height: 500px; max-width: 800px; -ms-overflow-style: none; scrollbar-width: none;"> <!-- Adjust the width and height as needed -->
+            <style>
+                .forum-posts::-webkit-scrollbar {
+                    display: none;
+                }
+            </style>
             {% for forum in forums %}
             <div class="forum-post">
                 <div class="post-header">

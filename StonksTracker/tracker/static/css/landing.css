@@ -71,3 +71,15 @@
     line-height: 1.5;
     margin-bottom: 1rem;
   }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    padding: 70px 90px;
+    width: 1100px;
+    text-align: center;
+}

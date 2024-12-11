@@ -74,7 +74,7 @@ def login_view(request):
         user = authenticate(username=email, password=password)  # Authenticate using email
         if user is not None:
             login(request, user)
-            return redirect('index')
+            return redirect('landing_page')
         else:
             messages.error(request, 'Invalid credentials')
     return render(request, 'login_page.html')
@@ -153,6 +153,11 @@ def change_password_view(request):
 @login_required
 def index(request):
     return render(request, 'index.html')
+
+#debug
+@login_required
+def landing_page(request):
+    return render(request, 'landing_page.html')
 
 @login_required
 def forum(request):
@@ -294,10 +299,7 @@ def edit_post(request, id):
         'forum': forum
     })
 
-#debug
-@login_required
-def landing_page(request):
-    return render(request, 'landing.html')
+
 
 @login_required
 def user_detail(request, pk):

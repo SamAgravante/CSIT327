@@ -6,7 +6,7 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/user_detail.css' %}">
 
-<div class="profile-page-container">
+<div class="profile-page-container" style="width: 70%;">
     <h1>Profile Page</h1>
     <hr>
     <div class="profile-card">
@@ -23,8 +23,8 @@
             <span>{{ user.email }}</span>
         </div>
         <div class="info-item">
-            <label>Username:</label>
-            <span>Stonks User</span> <!-- Static text to match the image -->
+            <label>Password:</label>
+            <span>**********</span> <!-- Static text to match the image -->
         </div>
         <div class="actions">
             <a href="{% url 'edit_user' user.UserID %}" class="btn btn-primary">Edit Profile</a>

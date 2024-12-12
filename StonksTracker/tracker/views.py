@@ -88,18 +88,22 @@ def logout_view(request):
 
 
 @login_required
-def update_account_view(request):
-    user = request.user
+def update_user_view(request, pk):
+    user = get_object_or_404(User, UserID=pk)  # Fetch user by primary key (ID)
     if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, instance=user)
-        if form.is_valid():
+        password_form = PasswordChangeForm(user, request.POST)
+        if form.is_valid() and password_form.is_valid():
             form.save()
-            messages.success(request, 'Account updated successfully.')
-            return redirect('account_settings')
+            password_form.save()
+            update_session_auth_hash(request, user)  # Important! Keep the user logged in
+            messages.success(request, 'User updated successfully.')
+            return redirect('user_detail', pk=user.UserID)  # Redirect to user detail after update
     else:
         form = CustomUserChangeForm(instance=user)
+        password_form = PasswordChangeForm(user)
     
-    return render(request, 'account_settings.html', {'form': form})
+    return render(request, 'update_user.html', {'form': form, 'password_form': password_form, 'user': user})
 
 
 @login_required
@@ -129,7 +133,7 @@ def delete_user_view(request, pk):
     if request.method == 'POST':
         user.delete()  # Delete user on POST request
         messages.success(request, 'User deleted successfully.')
-        return redirect('login_page')  # Redirect to user list after deletion
+        return redirect('login')  # Redirect to user list after deletion
     
     return render(request, 'delete_user.html', {'user': user})
 
@@ -142,7 +146,7 @@ def change_password_view(request):
             user = form.save()
             update_session_auth_hash(request, user)  # Important! Keep the user logged in
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('home')  # Redirect to home or any other page
+            return redirect('user_detail', pk=user.UserID)  # Redirect to home or any other page
     else:
         form = PasswordChangeForm(request.user)
 
@@ -304,5 +308,5 @@ def delete_user(request, pk):
     if request.method == 'POST':
         user.delete()
         messages.success(request, 'User deleted successfully.')
-        return redirect('login_page.html')
+        return redirect('login')
     return render(request, 'delete_user.html', {'user': user})

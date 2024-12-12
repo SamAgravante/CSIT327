@@ -4,7 +4,7 @@
 {% block title %}Update User - StonksTracker{% endblock %}
 
 {% block content %}
-
+<link rel="stylesheet" href="{% static 'css/user_detail.css' %}">
 <style>
     .container {
         width: 100%;
@@ -13,7 +13,7 @@
         padding: 2rem;
         background: white;
         border-radius: 10px;
-        box-shadow: 0 4px 6 px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .form-group {
         margin-bottom: 1rem;
@@ -80,6 +80,7 @@
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Update User</button>
             <a href="{% url 'user_detail' user.pk %}" class="btn btn-secondary">Back to User Detail</a>
+            <a href="{% url 'change_password' %}" class="btn btn-primary">Change Password</a>
         </div>
     </form>
 </div>
